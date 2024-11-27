@@ -1,0 +1,38 @@
+/* EmployeeForm.css */
+.employee-form-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.section-container {
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border: 1px solid #022a52;
+    border-radius: 8px;
+}
+
+.section-header {    
+    border-top-left-radius:8px;
+    border-top-right-radius:8px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #fbfcfc;
+    margin-bottom: 10px;
+    background-color: #007bff;
+    padding-left: 15px;
+}
+
+.section-content {
+    padding: 10px;
+}
+
+/* Style for buttons */
+.save-button {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.save-button:hover {
+    background-color: #0056b3;
+}

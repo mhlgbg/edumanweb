@@ -1,0 +1,16 @@
+.schedule-info {
+    border: 1px solid #ddd;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #624ef8;
+    margin-bottom: 20px;
+}
+
+.schedule-info h3 {
+    margin-top: 0;
+    color: #faf7f7;
+}
+
+.schedule-info p {
+    margin: 4px 0;
+}

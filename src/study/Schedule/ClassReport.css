@@ -1,0 +1,22 @@
+.class-report-container {
+    padding: 20px;
+}
+
+.section-container {
+    border: 1px solid #b5de12;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.section-header {
+    background-color: #dbb51d;
+    color: #333;
+    padding: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+}
+
+.section-content {
+    padding: 20px;
+}

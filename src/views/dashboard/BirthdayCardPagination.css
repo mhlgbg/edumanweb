@@ -1,0 +1,53 @@
+/* Birthday card styling with background and border */
+.birthday-card{
+    background-color: #26aae1;
+    border: 2px solid #f6b93b; /* Colorful border */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Slight shadow */
+    color: white;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .birthday-card-body {
+    position: relative;
+    z-index: 2;
+  }
+  
+  
+  
+  @keyframes flicker {
+    0% {
+      transform: scale(1) translateY(0);
+      opacity: 0.9;
+    }
+    50% {
+      transform: scale(1.1) translateY(-2px);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1) translateY(0);
+      opacity: 0.9;
+    }
+  }
+  
+  .candle {
+    width: 10px;
+    height: 60px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+  
+  .wick {
+    width: 2px;
+    height: 10px;
+    background-color: black;
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  

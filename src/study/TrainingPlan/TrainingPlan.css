@@ -1,0 +1,9 @@
+.action-buttons {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    gap: 8px; /* Khoảng cách giữa các nút */
+}
+
+.mb-2 {
+    margin-bottom: 0 !important; /* Đảm bảo nút không có khoảng cách dọc */
+}
