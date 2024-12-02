@@ -51,6 +51,20 @@ const _nav = (userRoles) => [
     to: '/study/training-plans',
     icon: <CIcon icon={cilText} customClassName="nav-icon" />,
     visible: ['admin', 'editor'],  // Chỉ hiển thị nếu có quyền
+  },
+  {
+    component: CNavItem,
+    name: 'Kế hoạch theo lớp',
+    to: '/study/training-plans-by-class',
+    icon: <CIcon icon={cilText} customClassName="nav-icon" />,
+    visible: ['admin', 'editor'],  // Chỉ hiển thị nếu có quyền
+  },
+  {
+    component: CNavItem,
+    name: 'Quản lý lớp học phần',
+    to: '/study/classroom-manager',
+    icon: <CIcon icon={cilText} customClassName="nav-icon" />,
+    visible: ['admin', 'editor'],  // Chỉ hiển thị nếu có quyền
   }
 ]
 

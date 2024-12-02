@@ -37,6 +37,8 @@ const Classroom = React.lazy(() => import('./study/Class/Classroom'))
 const ClassReport = React.lazy(() => import('./study/Schedule/ClassReport'))
 const StudentList = React.lazy(() => import('./study/Student/StudentList'))
 const TrainingPlan = React.lazy(() => import('./study/TrainingPlan/TrainingPlan'))
+const TrainingPlanByClass = React.lazy(() => import('./study/TrainingPlan/TrainingPlanByClass'))
+const ClassroomManager = React.lazy(() => import('./study/Classrooms/ClassroomManager'))
 
 //Student
 const StudentSchedule = React.lazy(() => import('./study/Student/StudentSchedule'))
@@ -185,7 +187,9 @@ const routes = [
   { path: '/study/modules', name: 'Môn học', element: ModuleManagement },
   { path: '/study/students', name: 'Danh sách sinh viên', element: StudentList },
   { path: '/study/training-plans', name: 'Kế hoạch giảng dạy', element: TrainingPlan },
+  { path: '/study/training-plans-by-class', name: 'Kế hoạch theo lớp', element: TrainingPlanByClass },
 
+  { path: '/study/classroom-manager', name: 'Quản lý lớp học phần', element: ClassroomManager },
 
   { path: '/student/schedules', name: 'Schedule', element: StudentSchedule },
   { path: '/student/my-tasks', name: 'Schedule', element: StudentTask },

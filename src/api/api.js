@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { getConfig } from '../config'
 
 const api = axios.create({
-    //baseURL: 'http://103.145.63.66:5006/api',
+    baseURL: 'http://103.145.63.66:5006/api',
     //baseURL: 'http://192.168.80.130:5003/api',
     //baseURL: `{getConfig('API_BASE_URL')}/api`,
-    baseURL: 'http://localhost:5002/api',
+    //baseURL: 'http://localhost:5002/api',
 });
 
 // Interceptor cho request để thêm token vào headers nếu có

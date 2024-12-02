@@ -1,0 +1,10 @@
+.custom-tooltip {
+    background-color: rgb(230, 6, 6) !important; /* Nền trắng */
+    color: rgb(250, 248, 248) !important; /* Chữ màu đen */
+    font-size: 14px; /* Kích thước chữ */
+    padding: 10px; /* Khoảng cách bên trong */
+    border-radius: 5px; /* Bo tròn góc */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+    max-width: 300px; /* Giới hạn chiều rộng */
+    text-align: left; /* Căn trái nội dung */
+  }

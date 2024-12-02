@@ -20,6 +20,7 @@ import {
 } from '@coreui/react';
 import Select from 'react-select';
 import axios from '../../api/api';
+import * as XLSX from "xlsx";
 
 const TrainingPlan = () => {
     const [semesterList, setSemesterList] = useState([]);
@@ -29,6 +30,11 @@ const TrainingPlan = () => {
 
     const [groupedPlans, setGroupedPlans] = useState({});
     const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+
+    const [isImportModalVisible, setIsImportModalVisible] = useState(false); // Import modal
+    const [importFile, setImportFile] = useState(null);
+
+
     const [newPlan, setNewPlan] = useState({
         MaHocPhan: '',
         MaLop: '',
@@ -164,6 +170,80 @@ const TrainingPlan = () => {
     const handleSearch = () => {
         fetchTrainingPlans(); // Gọi API để tìm kiếm
     };
+
+    const handleImportExcel = async () => {
+        if (!selectedSemester) {
+            alert("Vui lòng chọn học kỳ trước khi import dữ liệu.");
+            return;
+        }
+
+        if (!importFile) {
+            alert("Vui lòng chọn file Excel để import.");
+            return;
+        }
+
+        try {
+            const reader = new FileReader();
+            reader.onload = async (event) => {
+                const data = new Uint8Array(event.target.result);
+                const workbook = XLSX.read(data, { type: "array" });
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+                const jsonData = XLSX.utils.sheet_to_json(worksheet);
+                const formattedData = jsonData.map((row) => ({
+                    MaHocPhan: row["Mã môn"],
+                    MaNhom: row["Mã nhóm"],
+                    MaLop: row["Mã lớp"],
+                }));
+                console.log("handleImportExcel formattedData", formattedData);
+
+
+                await axios.post("/training-plans/import", {
+                    HocKiId: selectedSemester,
+                    Plans: formattedData,
+                });
+
+                fetchTrainingPlans();
+                setIsImportModalVisible(false);
+                setImportFile(null);
+                alert("Import dữ liệu thành công!");
+            };
+            reader.readAsArrayBuffer(importFile);
+        } catch (error) {
+            alert(error.response?.data?.message || "Có lỗi xảy ra khi import dữ liệu");
+        }
+    };
+
+    const handleGenerateClassesForSemester = async () => {
+        if (!selectedSemester) {
+            alert('Vui lòng chọn học kỳ trước khi tạo lớp học phần.');
+            return;
+        }
+
+        try {
+            await axios.post('/training-plans/generate-classes', { HocKiId: selectedSemester });
+            alert('Tạo lớp học phần thành công!');
+            fetchTrainingPlans();
+        } catch (error) {
+            alert(error.response?.data?.message || 'Có lỗi xảy ra khi tạo lớp học phần.');
+        }
+    };
+
+    const handleGenerateClassesForSubject = async (MaHocPhan) => {
+        if (!selectedSemester) {
+            alert('Vui lòng chọn học kỳ trước khi tạo lớp học phần.');
+            return;
+        }
+
+        try {
+            await axios.post('/training-plans/generate-classes', { HocKiId: selectedSemester, MaHocPhan });
+            alert(`Tạo lớp học phần cho môn ${MaHocPhan} thành công!`);
+            fetchTrainingPlans();
+        } catch (error) {
+            alert(error.response?.data?.message || 'Có lỗi xảy ra khi tạo lớp học phần.');
+        }
+    };
+
     return (
         <div>
             {/* Chọn học kỳ */}
@@ -206,6 +286,14 @@ const TrainingPlan = () => {
             <div className="mb-3">
                 <CButton color="success" onClick={() => setIsAddModalVisible(true)}>
                     Thêm mới kế hoạch
+                </CButton>
+
+                <CButton color="info" onClick={() => setIsImportModalVisible(true)}>
+                    Import Excel
+                </CButton>
+
+                <CButton color="primary" onClick={handleGenerateClassesForSemester}>
+                    Tạo Lớp Học Phần
                 </CButton>
             </div>
             <CTable>
@@ -266,6 +354,15 @@ const TrainingPlan = () => {
                                                     onClick={() => handleOpenAddClassModal(maHocPhan)}
                                                 >
                                                     Thêm lớp
+                                                </CButton>
+                                            )}
+                                            {index === 0 && (
+                                                <CButton
+                                                    color="info"
+                                                    size="sm"
+                                                    onClick={() => handleGenerateClassesForSubject(maHocPhan)}
+                                                >
+                                                    Tạo Lớp Học Phần
                                                 </CButton>
                                             )}
                                         </div>
@@ -355,6 +452,27 @@ const TrainingPlan = () => {
                         Thêm lớp
                     </CButton>
                     <CButton color="secondary" onClick={() => setIsAddClassModalVisible(false)}>
+                        Đóng
+                    </CButton>
+                </CModalFooter>
+            </CModal>
+            {/* Modal Import Excel */}
+            <CModal visible={isImportModalVisible} onClose={() => setIsImportModalVisible(false)}>
+                <CModalHeader>
+                    <CModalTitle>Import dữ liệu từ Excel</CModalTitle>
+                </CModalHeader>
+                <CModalBody>
+                    <CFormInput
+                        type="file"
+                        accept=".xlsx, .xls"
+                        onChange={(e) => setImportFile(e.target.files[0])}
+                    />
+                </CModalBody>
+                <CModalFooter>
+                    <CButton color="primary" onClick={handleImportExcel}>
+                        Import
+                    </CButton>
+                    <CButton color="secondary" onClick={() => setIsImportModalVisible(false)}>
                         Đóng
                     </CButton>
                 </CModalFooter>
