@@ -12,7 +12,7 @@ import {
   cilList,
   cilChatBubble,
   cilSettings,
-  cilIndustry,
+  cilCalendar,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -64,6 +64,14 @@ const _nav = (userRoles) => [
     name: 'Quản lý lớp học phần',
     to: '/study/classroom-manager',
     icon: <CIcon icon={cilText} customClassName="nav-icon" />,
+    visible: ['admin', 'editor'],  // Chỉ hiển thị nếu có quyền
+  }
+  ,
+  {
+    component: CNavItem,
+    name: 'Xem thời khóa biểu',
+    to: '/study/schedule-views',
+    icon: <CIcon icon={cilCalendar} customClassName="nav-icon" />,
     visible: ['admin', 'editor'],  // Chỉ hiển thị nếu có quyền
   }
 ]

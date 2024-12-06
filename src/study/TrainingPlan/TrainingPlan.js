@@ -139,7 +139,9 @@ const TrainingPlan = () => {
     const handleDeleteSubject = async (MaHocPhan) => {
         if (!window.confirm('Bạn có chắc chắn muốn xóa toàn bộ học phần này?')) return;
         try {
-            await axios.delete(`/training-plans/subject/${MaHocPhan}`);
+            await axios.delete(`/training-plans/subject/${MaHocPhan}`, {
+                data: { HocKiId: selectedSemester }, // Truyền thêm Học kỳ qua payload
+            });
             fetchTrainingPlans();
         } catch (error) {
             alert(error.response?.data?.message || 'Có lỗi xảy ra khi xóa học phần');

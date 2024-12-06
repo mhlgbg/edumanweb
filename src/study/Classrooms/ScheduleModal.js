@@ -1,3 +1,4 @@
+import Select from 'react-select';
 import React, { useEffect, useState } from 'react';
 import {
     CButton,
@@ -132,7 +133,7 @@ const ScheduleModal = ({ visible, onClose, classId, semesterId }) => {
                             <CTableHeaderCell>Tiết bắt đầu</CTableHeaderCell>
                             <CTableHeaderCell>Tiết kết thúc</CTableHeaderCell>
                             <CTableHeaderCell>Phòng</CTableHeaderCell>
-                            <CTableHeaderCell>Giáo viên</CTableHeaderCell>
+                            <CTableHeaderCell style={{ width: '250px', minWidth: '200px' }}>Giáo viên</CTableHeaderCell>
                             <CTableHeaderCell>Từ ngày</CTableHeaderCell>
 
                             <CTableHeaderCell>Hành động</CTableHeaderCell>
@@ -223,25 +224,33 @@ const ScheduleModal = ({ visible, onClose, classId, semesterId }) => {
                                     </CFormSelect>
                                 </CTableDataCell>
 
-                                <CTableDataCell>
-                                    <CFormSelect
-                                        value={schedule.MaNhanSu}
-                                        onChange={(e) =>
+                                <CTableDataCell style={{ width: '250px', minWidth: '200px' }}>
+                                    <Select
+                                        value={
+                                            nhanSuList
+                                                .map((nhanSu) => ({
+                                                    value: nhanSu.MaNhanhSu,
+                                                    label: nhanSu.HoVaTen,
+                                                }))
+                                                .find((option) => option.value === schedule.MaNhanSu) || null
+                                        }
+                                        onChange={(selectedOption) =>
                                             setSchedules((prev) =>
                                                 prev.map((item) =>
                                                     item.ThoiKhoaBieuId === schedule.ThoiKhoaBieuId
-                                                        ? { ...item, MaNhanSu: e.target.value }
+                                                        ? { ...item, MaNhanSu: selectedOption?.value || '' }
                                                         : item
                                                 )
                                             )
                                         }
-                                    >
-                                        {nhanSuList.map((nhanSu) => (
-                                            <option key={nhanSu.MaNhanhSu} value={nhanSu.MaNhanhSu}>
-                                                {nhanSu.HoVaTen}
-                                            </option>
-                                        ))}
-                                    </CFormSelect>
+                                        options={nhanSuList.map((nhanSu) => ({
+                                            value: nhanSu.MaNhanhSu,
+                                            label: nhanSu.HoVaTen,
+                                        }))}
+                                        placeholder="Chọn giáo viên"
+                                        isClearable
+                                        isSearchable
+                                    />
                                 </CTableDataCell>
                                 <CTableRow>
                                     <CTableDataCell>
@@ -357,19 +366,30 @@ const ScheduleModal = ({ visible, onClose, classId, semesterId }) => {
                                     ))}
                                 </CFormSelect>
                             </CTableDataCell>
-                            <CTableDataCell>
-                                <CFormSelect
-                                    value={newSchedule.MaNhanSu}
-                                    onChange={(e) =>
-                                        setNewSchedule((prev) => ({ ...prev, MaNhanSu: e.target.value }))
+                            <CTableDataCell style={{ width: '250px', minWidth: '200px' }}>
+                                <Select
+                                    value={
+                                        nhanSuList
+                                            .map((nhanSu) => ({
+                                                value: nhanSu.MaNhanhSu,
+                                                label: nhanSu.HoVaTen,
+                                            }))
+                                            .find((option) => option.value === newSchedule.MaNhanSu) || null
                                     }
-                                >
-                                    {nhanSuList.map((nhanSu) => (
-                                        <option key={nhanSu.MaNhanhSu} value={nhanSu.MaNhanhSu}>
-                                            {nhanSu.HoVaTen}
-                                        </option>
-                                    ))}
-                                </CFormSelect>
+                                    onChange={(selectedOption) =>
+                                        setNewSchedule((prev) => ({
+                                            ...prev,
+                                            MaNhanSu: selectedOption?.value || '', // Cập nhật MaNhanSu
+                                        }))
+                                    }
+                                    options={nhanSuList.map((nhanSu) => ({
+                                        value: nhanSu.MaNhanhSu,
+                                        label: nhanSu.HoVaTen,
+                                    }))}
+                                    placeholder="Chọn giáo viên"
+                                    isClearable
+                                    isSearchable
+                                />
                             </CTableDataCell>
                             <CTableRow>
                                 <CTableDataCell>

@@ -39,6 +39,7 @@ const StudentList = React.lazy(() => import('./study/Student/StudentList'))
 const TrainingPlan = React.lazy(() => import('./study/TrainingPlan/TrainingPlan'))
 const TrainingPlanByClass = React.lazy(() => import('./study/TrainingPlan/TrainingPlanByClass'))
 const ClassroomManager = React.lazy(() => import('./study/Classrooms/ClassroomManager'))
+const ScheduleView = React.lazy(() => import('./study/ScheduleView/ScheduleView'))
 
 //Student
 const StudentSchedule = React.lazy(() => import('./study/Student/StudentSchedule'))
@@ -190,6 +191,7 @@ const routes = [
   { path: '/study/training-plans-by-class', name: 'Kế hoạch theo lớp', element: TrainingPlanByClass },
 
   { path: '/study/classroom-manager', name: 'Quản lý lớp học phần', element: ClassroomManager },
+  { path: '/study/schedule-views', name: 'Xem thời khóa biểu', element: ScheduleView },
 
   { path: '/student/schedules', name: 'Schedule', element: StudentSchedule },
   { path: '/student/my-tasks', name: 'Schedule', element: StudentTask },

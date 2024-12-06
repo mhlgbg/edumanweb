@@ -194,6 +194,8 @@ const ClassroomManager = () => {
       <CTableRow key={lopHocPhan.LopHocPhanHocKiId}>
         <CTableDataCell>{index + 1}</CTableDataCell>
         <CTableDataCell>{lopHocPhan.MaHocPhan}</CTableDataCell>
+        <CTableDataCell>{lopHocPhan.TenHocPhan}</CTableDataCell>
+
         <CTableDataCell
           data-tooltip-id={`tooltip-${lopHocPhan.LopHocPhanHocKiId}`}
           onMouseEnter={() =>
